@@ -1,0 +1,6 @@
+id=susfs4ksu
+name=ksus-helper
+version=v1.0.0
+versionCode=101
+author=simonpunk2013 @ xda-developers
+description=An addon root hiding service for KernelSU compiled with patched kernel source.

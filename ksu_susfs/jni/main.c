@@ -94,7 +94,7 @@ struct st_susfs_uname {
  **********************/
 void pre_check() {
     if (getuid() != 0) {
-        log("[-] Must run as root\n");
+        printf("[-] Must run as root\n");
         exit(1);
     }
 }
@@ -151,50 +151,50 @@ int create_file(const char* filename) {
 }
 
 static void print_help(void) {
-    log(" usage: %s <CMD> [CMD options]\n", TAG);
-    log("    <CMD>:\n");
-    log("        add_sus_path </path/of/file_or_directory>\n");
-    log("         |--> Added path will be hidden from different syscalls\n");
-    log("\n");
-    log("        add_sus_mount_type <mount_type_name>\n");
-    log("         |--> Added mount type will be hidden from /proc/self/[mounts|mountinfo|mountstats]\n");
-    log("\n");
-    log("        add_sus_mount_path </path/of/file_or_directory>\n");
-    log("         |--> Added mounted path will be hidden from /proc/self/[mounts|mountinfo|mountstats]\n");
-    log("\n");
-    log("        add_sus_kstat_statically </path/of/file_or_directory> <ino> <dev> \\\n");
-    log("                                      <atime> <atime_nsec> <mtime> <mtime_nsec> <ctime> <ctime_nsec>\n");
-    log("         |--> Add the desired path for spoofing a custom ino, dev, atime, atime_nsec, mtime, mtime_nsec, ctime, ctime_nsec\n");
-    log("         |--> Use 'stat' tool to find the format of ino -> %%i, dev -> %%d, atime -> %%X, mtime -> %%Y, ctime -> %%Z\n");
-    log("         |--> e.g., %s add_sus_kstat_statically '/system/addon.d' '1234' '1234' \\\n", TAG);
-    log("                       '1712592355' '0' '1712592355' '0' '1712592355' '0' '1712592355' '0'\n");
-    log("         |--> Or pass 'default' to use its original value:\n");
-    log("         |--> e.g., %s add_sus_kstat_statically '/system/addon.d' 'default' 'default' \\\n", TAG);
-    log("                       '1712592355' 'default' '1712592355' 'default' '1712592355' 'default'\n");
-    log("\n");
-    log("        add_sus_kstat </path/of/file_or_directory>\n");
-    log("         |--> Add the desired path before it gets bind mounted or overlayed, this is used for storing original stat info in kernel memory\n");
-    log("         |--> This command must be completed with <update_sus_kstat> later after the added path is bind mounted or overlayed\n");
-    log("\n");
-    log("        update_sus_kstat </path/of/file_or_directory>\n");
-    log("         |--> Add the desired path you have added before via <add_sus_kstat> to complete the kstat spoofing procedure\n");
-    log("\n");
-    log("        add_sus_maps_statically <target_ino> <spoofed_ino> <spoofed_dev> <spoofed_pathname>\n");
-    log("         |--> Matched ino in /proc/self/[maps|smaps] will be spoofed for the user defined ino, dev and pathname\n");
-    log("         |--> Useful when it is not a file in maps, like /memfd: \n");
-    log("\n");
-    log("        add_try_umount </path/of/file_or_directory>\n");
-    log("         |--> Added path will be umount from kernel for all UIDs that are NOT su allowed, and profile template configured with umount\n");
-    log("\n");
-    log("        set_uname <sysname> <nodename> <release> <version> <machine>\n");
-    log("         |--> Spoof uname for all processes, set string to 'default' imply the function to use original string\n");
-    log("         |--> e.g., set_uname 'default' 'default' '4.9.337-g3291538446b7' 'default' 'default' \n");
-    log("\n");
-    log("        enable_log <0|1>\n");
-    log("         |--> 0: disable kernel log, 1: enable kernel log\n");
-    log("\n");
-    log("    [CMD options]:\n");
-    log("        mount_type_name: [overlay|you_name_it_as_I_dont_know]\n");
+    printf(" usage: %s <CMD> [CMD options]\n", TAG);
+    printf("    <CMD>:\n");
+    printf("        add_sus_path </path/of/file_or_directory>\n");
+    printf("         |--> Added path will be hidden from different syscalls\n");
+    printf("\n");
+    printf("        add_sus_mount_type <mount_type_name>\n");
+    printf("         |--> Added mount type will be hidden from /proc/self/[mounts|mountinfo|mountstats]\n");
+    printf("\n");
+    printf("        add_sus_mount_path </path/of/file_or_directory>\n");
+    printf("         |--> Added mounted path will be hidden from /proc/self/[mounts|mountinfo|mountstats]\n");
+    printf("\n");
+    printf("        add_sus_kstat_statically </path/of/file_or_directory> <ino> <dev> \\\n");
+    printf("                                      <atime> <atime_nsec> <mtime> <mtime_nsec> <ctime> <ctime_nsec>\n");
+    printf("         |--> Add the desired path for spoofing a custom ino, dev, atime, atime_nsec, mtime, mtime_nsec, ctime, ctime_nsec\n");
+    printf("         |--> Use 'stat' tool to find the format of ino -> %%i, dev -> %%d, atime -> %%X, mtime -> %%Y, ctime -> %%Z\n");
+    printf("         |--> e.g., %s add_sus_kstat_statically '/system/addon.d' '1234' '1234' \\\n", TAG);
+    printf("                       '1712592355' '0' '1712592355' '0' '1712592355' '0' '1712592355' '0'\n");
+    printf("         |--> Or pass 'default' to use its original value:\n");
+    printf("         |--> e.g., %s add_sus_kstat_statically '/system/addon.d' 'default' 'default' \\\n", TAG);
+    printf("                       '1712592355' 'default' '1712592355' 'default' '1712592355' 'default'\n");
+    printf("\n");
+    printf("        add_sus_kstat </path/of/file_or_directory>\n");
+    printf("         |--> Add the desired path before it gets bind mounted or overlayed, this is used for storing original stat info in kernel memory\n");
+    printf("         |--> This command must be completed with <update_sus_kstat> later after the added path is bind mounted or overlayed\n");
+    printf("\n");
+    printf("        update_sus_kstat </path/of/file_or_directory>\n");
+    printf("         |--> Add the desired path you have added before via <add_sus_kstat> to complete the kstat spoofing procedure\n");
+    printf("\n");
+    printf("        add_sus_maps_statically <target_ino> <spoofed_ino> <spoofed_dev> <spoofed_pathname>\n");
+    printf("         |--> Matched ino in /proc/self/[maps|smaps] will be spoofed for the user defined ino, dev and pathname\n");
+    printf("         |--> Useful when it is not a file in maps, like /memfd: \n");
+    printf("\n");
+    printf("        add_try_umount </path/of/file_or_directory>\n");
+    printf("         |--> Added path will be umount from kernel for all UIDs that are NOT su allowed, and profile template configured with umount\n");
+    printf("\n");
+    printf("        set_uname <sysname> <nodename> <release> <version> <machine>\n");
+    printf("         |--> Spoof uname for all processes, set string to 'default' imply the function to use original string\n");
+    printf("         |--> e.g., set_uname 'default' 'default' '4.9.337-g3291538446b7' 'default' 'default' \n");
+    printf("\n");
+    printf("        enable_log <0|1>\n");
+    printf("         |--> 0: disable kernel log, 1: enable kernel log\n");
+    printf("\n");
+    printf("    [CMD options]:\n");
+    printf("        mount_type_name: [overlay|you_name_it_as_I_dont_know]\n");
 }
 
 /*******************
@@ -210,7 +210,7 @@ int main(int argc, char *argv[]) {
         struct stat sb;
         strncpy(info.name, argv[2], SUSFS_MAX_LEN_PATHNAME);
         if (!get_file_stat(argv[2], &sb)) {
-            log("%s not found, skip adding its ino\n", info.name);
+            printf("%s not found, skip adding its ino\n", info.name);
             info.ino = sb.st_ino;
         } else {
             info.ino = 0;
@@ -242,7 +242,7 @@ int main(int argc, char *argv[]) {
         long atime, mtime, ctime;
 
         if (get_file_stat(argv[2], &sb)) {
-            log("[-] Failed to get stat from path: '%s'\n", argv[2]);
+            printf("[-] Failed to get stat from path: '%s'\n", argv[2]);
             return 1;
         }
 
@@ -322,7 +322,7 @@ int main(int argc, char *argv[]) {
         struct st_susfs_suspicious_kstat info;
         struct stat sb;
         if (get_file_stat(argv[2], &sb)) {
-            log("[-] Failed to get stat from path: '%s'\n", argv[2]);
+            printf("[-] Failed to get stat from path: '%s'\n", argv[2]);
             return 1;
         }
         strncpy(info.target_pathname, argv[2], SUSFS_MAX_LEN_PATHNAME);
@@ -335,7 +335,7 @@ int main(int argc, char *argv[]) {
         struct st_susfs_suspicious_kstat info;
         struct stat sb;
         if (get_file_stat(argv[2], &sb)) {
-            log("[-] Failed to get stat from path: '%s'\n", argv[2]);
+            printf("[-] Failed to get stat from path: '%s'\n", argv[2]);
             return 1;
         }
         strncpy(info.target_pathname, argv[2], SUSFS_MAX_LEN_PATHNAME);
